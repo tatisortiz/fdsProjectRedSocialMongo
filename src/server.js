@@ -6,10 +6,7 @@ const app = express()
 
 const PORT =process.env.PORT || 4000
 
-
 app.use(express.json())
-
-
 app.get('/healthy',(req, res)=> {
     res.json(
         {
@@ -24,7 +21,10 @@ app.get('/healthy',(req, res)=> {
 
 
 
- dbConnection().then(()=> {
+ 
+
+
+dbConnection().then(()=> {
     console.log('Databse connected');
    app.listen(PORT, () => {
         console.log(`server runnig ${PORT}`);
