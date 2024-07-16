@@ -1,9 +1,10 @@
-import { Router } from "express"
+import { Router } from "express";
+import { router as usersRoutes} from './entities/users/users.routes.js'
 
 
 const router = Router()
 
-router.use('/users',userRoutes)
+router.use('/users',usersRoutes)
 
 
 

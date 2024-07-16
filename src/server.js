@@ -1,6 +1,7 @@
-import  express from 'express';
+import  express, { Router } from 'express';
 import 'dotenv/config';
 import { dbConnection } from './database/db.js';
+import { router } from './router.js';
 
 const app = express()
 
@@ -16,7 +17,7 @@ app.get('/healthy',(req, res)=> {
     )
 })
 
-
+app.use('/', router);
 
 
 
