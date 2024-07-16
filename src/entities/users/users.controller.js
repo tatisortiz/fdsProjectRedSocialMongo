@@ -141,7 +141,7 @@ export const getAllUsers= async (req, res) => {
 export const updateUser = async (req , res ) => { 
     
 try {
-    const userId = req.tokenData.id;
+    const userId = req.tokendata.id;
     const { first_name, last_name } = req.body;
 
     const findUserById = await User.findOne({_id: userId })
