@@ -14,7 +14,7 @@ const PostShema = new Schema(
 
    },
 
-   user: [
+   userId: [
     {
         type: Schema.Types.ObjectId,
         ref: 'User',
