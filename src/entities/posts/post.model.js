@@ -14,10 +14,11 @@ const PostShema = new Schema(
 
    },
 
-   author: [
+   user: [
     {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
     }
    ],
    likes: [

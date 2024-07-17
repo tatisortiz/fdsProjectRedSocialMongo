@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
         const newPost = await Post.create({
             title: title,
             description: description,
-            author: userId 
+            userId: userId 
         });
 
         res.status(201).json({
