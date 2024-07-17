@@ -1,8 +1,8 @@
 
 export const isSuperAdmin = async (req, res,next) => {
     try {
-      console.log(req.tokenData)
-        if (req.tokenData.role_id !== 'super_admin') {
+     
+        if (req.tokenData.role !== 'super_admin') {
            return res.json(
                 {
                     success: false,

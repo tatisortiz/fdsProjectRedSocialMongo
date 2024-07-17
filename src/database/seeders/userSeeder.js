@@ -16,14 +16,7 @@ const userSeeder = async () => {
                 password: bcrypt.hashSync("123456789",parseInt(process.env.SALT_ROUNDS)),
                 role: "user",
             },
-            // {
-            //     _id: "55f8d0c0c9b8b4b2e8c2e2b9l",
-            //     first_name: "admin",
-            //     last_name: "admin",
-            //     email: "admin@admin.com",
-            //     password: bcrypt.hashSync("123456789", parseInt(process.env.SALT_ROUNDS)),
-            //     role: "admin",
-            // },
+        
             {
                 _id: "5f8d0c0c9b8b4b2e8c2e2b3e",
                 first_name: "superadmin",

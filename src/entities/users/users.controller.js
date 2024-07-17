@@ -2,8 +2,9 @@ import bcrypt from "bcrypt"
 import User from "./user.model.js";
 import jwt from "jsonwebtoken"
 
-export const getUser = async (req, res) => { 
+export const getAllUsers = async (req, res) => { 
     try {
+        console.log(req.tokenData.role)
         const users = await User.find().select('-password');
         res.status(200).json(
             {
@@ -23,7 +24,7 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const getAllUsers= async (req, res) => {
+export const getUserProfile= async (req, res) => {
     
     try {
         const userId = req.tokenData.userId
