@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { createPost } from './post.controller.js'
+import { createPost, deletePostById } from './post.controller.js'
 import { auth } from '../middlewares/auth.js'
 
 const router = Router()
 
 router.post('/',auth,createPost)
-// router.delete('/api/posts/:id')
+router.delete('/:id', deletePostById)
 // router.put('/api/posts')
 // router.get('/api/posts/own')
 // router.get('/api/posts')
