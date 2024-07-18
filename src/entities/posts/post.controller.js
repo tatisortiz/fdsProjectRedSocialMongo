@@ -39,73 +39,83 @@ export const createPost = async (req, res) => {
 
 export const deletePostById = async (req, res) => {
     try {
-
-        const postIdDelete = req.params.id
-
-        const idToDeletevalid = Types.ObjectId.isValid(postIdDelete)
-
-        if (!idToDeletevalid) {
-            return res.status(400).json({
-                success: false,
-                message: "Id not valid"
-            })
+         const userId = req.tokenData.id;
+        const postIdToDelete = req.params.id;
+        const postIdToDeleteIsValid = Types.ObjectId.isValid(postIdToDelete);
+        if (!postIdToDeleteIsValid) {
+          return res.status(400).json({
+            success: false,
+            message: "Post id not valid",
+          });
         }
-        const deletedPost = await Post.findByIdAndDelete(postIdDelete)
+        const post = await Post.findById(postIdToDelete);
+
+       if (post.user_id.toString() !== req.tokenData.id) {
+          return res.status(403).json({
+            success: false,
+            message: "You are not authorized to delete this post",
+          });
+        }
+        const deletedPost = await Post.findByIdAndDelete(postIdToDelete);
         if (!deletedPost) {
-            return res.status(404).json({
-                succes: false,
-                message: "Not Post found"
-            })
+          return res.status(404).json({
+            succes: false,
+            message: "Post not found",
+          });
         }
         res.status(200).json({
-            success: true,
-            message: "Post deleted",
-        })
+          success: true,
+          message: "Post deleted",
+        });
+      } catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: "Error trying to delete post",
+          error: error.message,
+        });
+      }
+    };
 
-    } catch (error) {
-        res.status(500).json(
-            {
-                success: false,
-                message: "Error deleting post",
-                error: error.message
+
+    export const updatePostById = async (req, res) => {
+        try {
+            const Id = req.params.id
+            const { title, description } = req.body
+    
+            const post = await Post.findOne({ _id: Id })
+    
+            if (!post) {
+                return res.status(404).json({  
+                    success: false,
+                    message: "Post does not exist"
+                })
             }
-        )
-
-    }
-}
-
-export const updatePostById = async (req, res) => {
-    try {
-        const Id = req.params.id
-        const { title, description } = req.body
-
-        const post = await Post.findOne({ _id: Id })
-
-        if (!post) {
-            return res.status(404).json({  
+    
+            if (post.user_id.toString() !== req.tokenData.id) {
+                return res.status(403).json({
+                  success: false,
+                  message: "You are not authorized to update this post",
+                });
+            }
+    
+            const updatedPost = await Post.updateOne(
+                { _id: Id },
+                { title: title, description: description }
+            )
+    
+            res.status(201).json({
+                success: true,
+                message: "Post updated",
+                data: updatedPost
+            })
+    
+        } catch (error) {
+            res.status(500).json({
                 success: false,
-                message: "Post does not exist"
+                message: "Error updating post"
             })
         }
-
-        const updatedPost = await Post.updateOne(
-            { _id: Id },
-            { title: title, description: description }
-        )
-
-        res.status(201).json({
-            success: true,
-            message: "Post updated",
-            data: updatedPost
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Error updating post"
-        })
     }
-}
 
 export const getPostOwn = async (req, res) => {
     
@@ -166,5 +176,31 @@ export const getALLPost = async (req, res) => {
             });
         }
     }
- 
-
+export const getPostById = async (req, res) => {
+    try {
+    
+                const postId = req.params.id;
+        
+                const post = await Post.findById(postId).populate({ path: "user_id", select: "-password " });
+        
+                if (!post) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "Post not found"
+                    });
+                }
+        
+                res.status(200).json({
+                    success: true,
+                    message: "Post retrieved successfully",
+                    data: post
+                });
+        
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    message: "Error retrieving post",
+                    error: error.message
+                });
+            } 
+        }
