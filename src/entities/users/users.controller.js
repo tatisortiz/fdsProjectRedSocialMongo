@@ -46,7 +46,7 @@ export const updateUser = async (req, res) => {
   try {
     const userIdToUpdate = req.tokenData.id;
     const { first_name, last_name, email, password } = req.body;
-     console.log(userIdToUpdate)
+     
     let hashedPassword;
 
     if (password) {
