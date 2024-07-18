@@ -123,7 +123,7 @@ export const getPostOwn = async (req, res) => {
 
         const userId = req.tokenData.id;
 
-        const posts = await Post.find({ user_id: userId }).populate({ path: "user_id" });
+        const posts = await Post.find({ user_id: userId })
 
         if (posts.length === 0) {
             return res.status(404).json({
@@ -153,7 +153,7 @@ export const getPostOwn = async (req, res) => {
 
 export const getALLPost = async (req, res) => {
         try {
-            const posts = await Post.find().populate({ path: "user_id", select: "name" });
+            const posts = await Post.find().populate({ path: "user_id", select: "first_name last_name" });
     
             if (posts.length === 0) {
                 return res.status(404).json({
