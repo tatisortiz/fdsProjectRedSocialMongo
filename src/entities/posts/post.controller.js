@@ -74,7 +74,7 @@ export const deletePostById = async (req, res) => {
     }
 }
 
-export const updatePost = async (req, res) => {
+export const updatePostById = async (req, res) => {
     try {
         const Id = req.params.id
         const { title, description } = req.body
@@ -106,3 +106,65 @@ export const updatePost = async (req, res) => {
         })
     }
 }
+
+export const getPostOwn = async (req, res) => {
+    
+    try {
+
+        const userId = req.tokenData.id;
+
+        const posts = await Post.find({ user_id: userId }).populate({ path: "user_id" });
+
+        if (posts.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "You haven't created any posts yet",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Your posts retrieved",
+            data: posts
+        });
+
+        
+    } catch (error) {
+        res.status(500).json(
+            {
+                success: false,
+                message: "Can't retrieve your posts",
+                error: error.message
+            }
+        )
+        
+    }
+};
+
+export const getALLPost = async (req, res) => {
+        try {
+            const posts = await Post.find().populate({ path: "user_id", select: "name" });
+    
+            if (posts.length === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No posts found",
+                });
+            }
+    
+            res.status(200).json({
+                success: true,
+                message: "Posts retrieved",
+                data: posts,
+            });
+    
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: "Posts can't be retrieved",
+                error: error.message,
+            });
+        }
+    }
+ 
+
