@@ -5,18 +5,24 @@ export const createPost = async (req, res) => {
     try {
         const title = req.body.title;
         const description = req.body.description;
-        const userId = req.tokenData.userId;
+        const userId = req.tokenData.id;
 
         const newPost = await Post.create({
             title: title,
             description: description,
-            userId: userId 
+            user_id: userId 
         });
+
+        const populatedPost = await Post.findById(newPost._id).populate({
+            path: "user_id",
+            select: "-password"
+          });
+      
 
         res.status(201).json({
             success: true,
             message: "New post created succesfully",
-            data: newPost,
+            data: populatedPost
         });
 
         

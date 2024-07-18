@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import { createPost } from './post.controller.js'
+import { auth } from '../middlewares/auth.js'
 
 const router = Router()
 
-router.post('/api/posts', createPost)
+router.post('/',auth,createPost)
 // router.delete('/api/posts/:id')
 // router.put('/api/posts')
 // router.get('/api/posts/own')
