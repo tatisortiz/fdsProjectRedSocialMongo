@@ -3,7 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import User from "../../entities/users/user.model.js";
 
-const userSeeder = async () => {
+export const userSeeder = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI, {});
         
@@ -67,7 +67,7 @@ const userSeeder = async () => {
 };
 
 
-userSeeder();
+
 
         
   
