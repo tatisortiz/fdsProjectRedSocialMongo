@@ -231,46 +231,38 @@ export const getPostsByUserId = async (req, res) => {
     }
   };
 
-export const likeUserById = async (req, res) => {
+  export const likeUserById= async (req, res) => {
     try {
-        const userId = req.tokenData.userId;
-        const postId = req.params.id;
-        
-        const post = await Post.findById(postId);
-
-        if (!post) {
-            return res.status(404).json({
-                success: false,
-                message: "Post not found"
-            });
-        }
-
-        const hasLike = post.likes.includes(userId);
-
-        if (hasLike) {
-            post.likes.pull(userId);
-        } else {
-            post.likes.push(userId);
-        }
-
-        await post.save();
-
-        const message = hasLike 
-        ? "Post unliked successfully" 
-        : "Post liked successfully";
-
-        res.status(200).json({
-            success: true,
-            message: message,
-            data: post
+      const userId = req.tokenData.id;
+      const postId = req.params.id;
+      console.log(userId);
+      const post = await Post.findById(postId);
+      if (!post) {
+        return res.status(404).json({
+          success: false,
+          message: "Post not found",
         });
-
-        
+      }
+      const hasLike = post.likes.includes(userId);
+      if (hasLike) {
+        post.likes.pull(userId);
+      } else {
+        post.likes.push(userId);
+      }
+      await post.save();
+      const message = hasLike
+        ? "Post unliked successfully"
+        : "Post liked successfully";
+      res.status(200).json({
+        success: true,
+        message: message,
+        data: post,
+      });
     } catch (error) {
       res.status(500).json({
         success: false,
         message: "Error liking/unliking post",
-        error: error.message  
-      })  
+        error: error.message,
+      });
     }
-}
+  };
