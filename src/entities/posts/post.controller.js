@@ -203,4 +203,74 @@ export const getPostById = async (req, res) => {
                     error: error.message
                 });
             } 
+}
+
+export const getPostsByUserId = async (req, res) => {
+    try {
+      const Id = req.params.id;
+  
+      const posts = await Post.find({ user_id: Id });
+  
+      if (posts.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No posts by this user",
+        });
+      }
+  
+      res.status(201).json({
+        success: true,
+        message: "Post(s) found",
+        data: posts,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error finding post by id",
+      });
+    }
+  };
+
+export const likeUserById = async (req, res) => {
+    try {
+        const userId = req.tokenData.userId;
+        const postId = req.params.id;
+        
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found"
+            });
         }
+
+        const hasLike = post.likes.includes(userId);
+
+        if (hasLike) {
+            post.likes.pull(userId);
+        } else {
+            post.likes.push(userId);
+        }
+
+        await post.save();
+
+        const message = hasLike 
+        ? "Post unliked successfully" 
+        : "Post liked successfully";
+
+        res.status(200).json({
+            success: true,
+            message: message,
+            data: post
+        });
+
+        
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error liking/unliking post",
+        error: error.message  
+      })  
+    }
+}
