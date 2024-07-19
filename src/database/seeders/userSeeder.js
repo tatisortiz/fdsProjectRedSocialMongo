@@ -9,7 +9,7 @@ const userSeeder = async () => {
         
         const users = [
             {   
-                _id: "5f8d0c0c9b8b4b2e8c2e2b3c",
+                
                 first_name: "user",
                 last_name: "user",
                 email: "user1@user1.com",
@@ -18,7 +18,7 @@ const userSeeder = async () => {
             },
         
             {
-                _id: "5f8d0c0c9b8b4b2e8c2e2b3e",
+                
                 first_name: "superadmin",
                 last_name: "superadmin",
                 email: "superadmin@superadmin.com",
@@ -26,7 +26,7 @@ const userSeeder = async () => {
                 role: "super_admin",
             },
             {
-                _id: "5f8d0c0c9b8b4b2e8c2e2b3f",
+              
                 first_name: "jehova",
                 last_name: "jehova",
                 email: "jehova@jehova.com",
@@ -34,7 +34,7 @@ const userSeeder = async () => {
                 role: "user",
             },
             {
-                _id: "5f8d0c0c9b8b4b2e8c2e2b40",
+                
                 first_name: "mama",
                 last_name: "madre",
                 email: "madre@madre.com",
@@ -42,7 +42,7 @@ const userSeeder = async () => {
                 role: "user",
             },
             {
-                _id: "5f8d0c0c9b8b4b2e8c2e2b41",
+                
                 first_name: "papa",
                 last_name: "papa",
                 email: "papa@papa.com",
