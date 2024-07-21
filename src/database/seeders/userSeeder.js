@@ -12,7 +12,7 @@ export const userSeeder = async () => {
                 
                 first_name: "user",
                 last_name: "user",
-                email: "user1@user1.com",
+                email: "user3@user3.com",
                 password: bcrypt.hashSync("123456789",parseInt(process.env.SALT_ROUNDS)),
                 role: "user",
             },
