@@ -9,7 +9,6 @@
 - [Stack](#stack-💻)
 - [Database Diagram📋](#database-diagram-📋)
 - [Local Installation Option ⚙️](#local-installation-option-⚙️)
-- [Users created](#users-created🌐) 
 - [Endpoints ⚙️](#endpoints-⚙️)
 - [Future Functionalities 👨🏻‍💻](#future-functionalities-👨🏻‍💻)
 - [Author ✒️](#author-✒️)
@@ -94,29 +93,6 @@ To run the server:
 ```sh
 npm run dev
 ```
-## Users created 🌐
-1. User - role: user
-```json
-{
-  "first_name": "user",
-  "last_name": "user",
-  "email": "user@user.com",
-  "password": "12345689",
-  "role": "user",
-}
-```
-2.  SuperAdmin - role: superadmin
-```json
-     {
-                
-     "first_name": "superadmin",
-     "last_name": "superadmin",
-     "email": "superadmin@superadmin.com",
-     "password":"123456789",
-     "role": "super_admin",
-            },
-```
-
 
 ## Endpoints ⚙️
 
