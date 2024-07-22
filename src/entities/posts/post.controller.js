@@ -14,7 +14,7 @@ export const createPost = async (req, res) => {
 
     const populatedPost = await Post.findById(newPost._id).populate({
       path: "user_id",
-      select: "-password",
+      select: "-password -_id"
     });
 
     res.status(201).json({
