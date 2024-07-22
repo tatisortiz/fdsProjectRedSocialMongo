@@ -37,12 +37,16 @@ export const register = async (req, res) => {
                 password: hashedPassword
             }
         )
+       
       
     res.status(200).json(
         {
             success:true,
             message: "User registered",
-            data: newUser
+            data: {
+                userEmail: newUser.email,
+                userRole: newUser.role
+            }
         }
     )
    
