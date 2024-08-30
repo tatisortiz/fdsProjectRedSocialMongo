@@ -2,12 +2,21 @@ import  express from 'express';
 import 'dotenv/config';
 import { dbConnection } from './database/db.js';
 import { router } from './router.js';
+import cors from 'cors';
 
 const app = express()
 
 app.use(express.json());
 
 const PORT =process.env.PORT || 4000
+
+
+app.use(cors({
+    origin: 'http://localhost:5174',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
 
 app.use(express.json())
 app.get('/healthy',(req, res)=> {
