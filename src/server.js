@@ -12,7 +12,13 @@ const PORT =process.env.PORT || 4000
 
 
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: (origin, callback) => {
+        if (origin && origin.startsWith('http://localhost:')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
