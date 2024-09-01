@@ -250,9 +250,7 @@ export const likePostById = async (req, res) => {
     const userId = req.tokenData.id;
     const postId = req.params.id;
 
-    console.log(userId);
-
-    const post = await Post.findById(postId);
+    const post = await Post.findOne({ _id: postId });
 
     if (!post) {
       return res.status(404).json({
@@ -269,12 +267,15 @@ export const likePostById = async (req, res) => {
       post.likes.push(userId);
     }
 
-    await post.save();
+    const updatedPost = await Post.updateOne(
+      { _id: postId },
+      { likes: post.likes }
+    );
 
     const message = hasLike
       ? "Post unliked successfully"
       : "Post liked successfully";
-
+      
     res.status(200).json({
       success: true,
       message: message,
