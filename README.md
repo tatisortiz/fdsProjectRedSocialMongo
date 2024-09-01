@@ -85,7 +85,7 @@ npm install
 ```sh
 npm run db:seed
 ```
-5. Install CORS
+6. Install CORS
 
 ```sh
 npm install cors
